@@ -13,17 +13,17 @@ export const loadingSlice = createSlice({
   name: 'loading',
   initialState,
   reducers: {
-    start: (state, action: PayloadAction<boolean>) => {
+    showLoader: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload
     },
 
-    end: (state, action: PayloadAction<boolean>) => {
+    hiddenLoader: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload
     },
   },
 })
 
-export const { start, end } = loadingSlice.actions
+export const { showLoader, hiddenLoader } = loadingSlice.actions
 
 export const selectLoading = (state: RootState) => state.loading.isLoading
 

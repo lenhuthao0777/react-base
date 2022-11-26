@@ -4,12 +4,12 @@ import {
   createRoutesFromElements,
   Route,
 } from 'react-router-dom'
-// conponent
+// component
 import Default from '../layouts/Default'
-const Login = lazy(() => import('../pages/Login'))
-const Error = lazy(() => import('../pages/Error/Error'))
-const Home = lazy(() => import('../pages/Home'))
-const Profile = lazy(() => import('../pages/Profile'))
+import Home from '../pages/Home'
+import Login from '../pages/Login'
+import Profile from '../pages/Profile'
+import Error from '../pages/Error/Error'
 
 // ENUM
 import { ROUTER_ENUM } from './Router.enum'

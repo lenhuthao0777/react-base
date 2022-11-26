@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import loadingSlice from './../features/Loading'
+import home from '../features/Home'
 
 export const store = configureStore({
   reducer: {
     loading: loadingSlice,
+    home
   },
 })
 

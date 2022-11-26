@@ -1,9 +1,7 @@
-import axios, { AxiosRequestConfig } from 'axios'
-// import qs from 'qs'
-// import dotenv from 'dotenv'
-import Cookies from 'js-cookies'
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { AXIOS_CONFIG } from '../enums/global.enum'
-import { end, start } from '../features/Loading'
+import { showLoader, hiddenLoader } from '../features/Loading'
+
 const apiService = (dispatch?: any) => {
   const axiosClient = axios.create({
     baseURL: 'https://6155898393e3550017b08a76.mockapi.io',
@@ -12,27 +10,27 @@ const apiService = (dispatch?: any) => {
 
   axiosClient.interceptors.request.use(
     (request: any) => {
-      dispatch && dispatch(start(true))
+      dispatch && dispatch(showLoader(true))
       // const token = Cookies.get(AXIOS_CONFIG.TOKEN) || null
       const token = AXIOS_CONFIG.TOKEN
       if (token) request.headers.Authorization = `Bearer ${token}`
       return request
     },
     (err) => {
-      dispatch && dispatch(end(false))
+      dispatch && dispatch(hiddenLoader(false))
 
       return { status: err.request.status, request: err.request.data.errors }
     }
   )
 
   axiosClient.interceptors.response.use(
-    (response) => {
-      dispatch && dispatch(start(false))
+    (response: AxiosResponse) => {
+      dispatch && dispatch(hiddenLoader(false))
 
       return response
     },
     (error) => {
-      dispatch && dispatch(end(false))
+      dispatch && dispatch(hiddenLoader(false))
 
       if (error.status === 401) {
         // xu ly logout: clear cookies, day nguoi dung ve trang login
