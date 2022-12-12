@@ -2,7 +2,7 @@ import React from 'react'
 
 function index() {
   return (
-    <div>Profile</div>
+    <div>Profiles</div>
   )
 }
 

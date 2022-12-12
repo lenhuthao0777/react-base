@@ -1,8 +1,15 @@
 import React, { PropsWithChildren } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, RouterProvider, useNavigate } from 'react-router-dom'
 import Loading from '../components/Loading'
 
-const Default: React.FC<PropsWithChildren> = ({ children }) => {
+const Default: any = ({ children }: any) => {
+  // const auth: number[] | string = 'not'
+  // const navigate = useNavigate()
+
+  // if (auth !== 'admin') {
+  //   return navigate('/login')
+  // }
+
   return (
     <div className='h-vh'>
       <div className='flex'>

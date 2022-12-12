@@ -1,15 +1,17 @@
-import { lazy } from 'react'
+import { Fragment, lazy } from 'react'
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
 } from 'react-router-dom'
+import { v4 as uuid } from 'uuid'
 // component
 import Default from '../layouts/Default'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
 import Profile from '../pages/Profile'
 import Error from '../pages/Error/Error'
+import Auth from '../auth'
 
 // ENUM
 import { ROUTER_ENUM } from './Router.enum'
@@ -31,12 +33,14 @@ type children = {
 
 const routers = [
   {
+    id: uuid(),
     path: ROUTER_ENUM.BASE_URL,
     element: <Default />,
     loader: () => {},
     errorElement: <Error />,
     children: [
       {
+        id: uuid(),
         path: ROUTER_ENUM.DEFAULT,
         element: <Home />,
         loader: () => {},
@@ -45,12 +49,14 @@ const routers = [
     ],
   },
   {
+    id: uuid(),
     path: ROUTER_ENUM.PROFILE,
     element: <Default />,
     loader: () => {},
     errorElement: <Error />,
     children: [
       {
+        id: uuid(),
         path: ROUTER_ENUM.DEFAULT,
         element: <Profile />,
         loader: () => {},
@@ -59,11 +65,13 @@ const routers = [
     ],
   },
   {
+    id: uuid(),
     path: ROUTER_ENUM.LOGIN,
     loader: () => {},
     errorElement: <Error />,
     children: [
       {
+        id: uuid(),
         path: ROUTER_ENUM.DEFAULT,
         element: <Login />,
         loader: () => {},
@@ -71,19 +79,26 @@ const routers = [
       },
     ],
   },
+  {
+    id: uuid(),
+    path: ROUTER_ENUM.NOT_FOUND,
+    loader: () => {},
+    errorElement: <Error />,
+    children: [],
+  },
 ]
 
-const ListRouters = routers.map((route, index) => (
+const ListRouters = routers.map((route) => (
   <Route
     element={route.element}
     path={route.path}
-    key={index}
+    key={route.id}
     errorElement={route.errorElement}
   >
     {route.children.length &&
-      route.children.map((child, childIndex) => (
+      route.children.map((child) => (
         <Route
-          key={childIndex}
+          key={child.id}
           element={child.element}
           path={child.path}
           errorElement={child.errorElement}
